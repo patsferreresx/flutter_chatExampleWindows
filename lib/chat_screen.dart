@@ -23,7 +23,7 @@ class ChatBody extends StatelessWidget {
                         child: ChatMember(),
                       ),
                       CustomDivider(),
-                      Expanded(child: Container()),
+                      Expanded(child: MessageBox()),
                       CustomDivider(),
                       Container(width: 400),
                     ],
@@ -34,16 +34,6 @@ class ChatBody extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class CustomDivider extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).dividerColor,
-      width: 1,
     );
   }
 }
