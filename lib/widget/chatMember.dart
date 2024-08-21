@@ -1,80 +1,104 @@
+import 'package:chat_teste/widget/messageBox.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class ChatMember extends StatelessWidget {
+  final DeviceScreenType deviceScreenType;
+
+  const ChatMember({super.key, required this.deviceScreenType});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text(
-                "Chats",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 19,
+          Expanded(
+            child: Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "Chats",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 19,
+                          ),
+                        ),
+                        Spacer(),
+                        IconButton(icon: Icon(Icons.search), onPressed: () {}),
+                        SizedBox(width: 20),
+                        IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            onPressed: () {}),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.blue.withOpacity(.1),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text("Open",
+                              style: TextStyle(color: Colors.blue)),
+                        ),
+                        SizedBox(width: 20),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.blue.withOpacity(.1),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text(
+                            "Done",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            border: Border.all(
+                                color: Theme.of(context).iconTheme.color ??
+                                    const Color(0xFF9BA6BB),
+                                width: .5),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text(
+                            "Open",
+                            style: TextStyle(
+                                color: Theme.of(context).iconTheme.color),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Column(
+                      children: List.generate(
+                        members.length,
+                        (index) => MemberCard(
+                          member: members[index],
+                          deviceScreenType: deviceScreenType,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Spacer(),
-              IconButton(icon: Icon(Icons.search), onPressed: () {}),
-              SizedBox(width: 20),
-              IconButton(
-                  icon: Icon(
-                    Icons.add,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  onPressed: () {}),
-            ],
-          ),
-          SizedBox(height: 20),
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
-                  color: Colors.blue.withOpacity(.1),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Text("Open", style: TextStyle(color: Colors.blue)),
-              ),
-              SizedBox(width: 20),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
-                  color: Colors.blue.withOpacity(.1),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Text(
-                  "Done",
-                  style: TextStyle(color: Colors.blue),
-                ),
-              ),
-              SizedBox(width: 20),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
-                  border: Border.all(
-                      color: Theme.of(context).iconTheme.color ??
-                          const Color(0xFF9BA6BB),
-                      width: .5),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Text(
-                  "Open",
-                  style: TextStyle(color: Theme.of(context).iconTheme.color),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 30),
-          Column(
-            children: List.generate(
-              members.length,
-              (index) => MemberCard(member: members[index]),
             ),
           ),
-          Spacer(),
+          SizedBox(height: 20),
           Row(
             children: [
               Icon(Icons.feedback),
@@ -95,15 +119,46 @@ class MemberCard extends StatelessWidget {
   final Member member;
   final bool showJob;
   final Widget? trailing;
+  final DeviceScreenType? deviceScreenType;
 
-  const MemberCard({super.key, this.showJob = false, required this.member, this.trailing});
+  const MemberCard(
+      {super.key,
+      this.deviceScreenType,
+      this.showJob = false,
+      required this.member,
+      this.trailing});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+          if (deviceScreenType == DeviceScreenType.mobile ||
+              deviceScreenType == DeviceScreenType.tablet) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return Scaffold(
+                    body: MessageBox(),
+                    appBar: AppBar(
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      elevation: 0,
+                      title: Text(
+                        "Messaging",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      iconTheme: IconThemeData(
+                          color: Theme.of(context).iconTheme.color),
+                    ),
+                  );
+                },
+              ),
+            );
+          }
+        },
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Text(
