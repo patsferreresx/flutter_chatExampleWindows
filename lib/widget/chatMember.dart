@@ -71,34 +71,7 @@ class ChatMember extends StatelessWidget {
           Column(
             children: List.generate(
               members.length,
-              (index) => Container(
-                margin: EdgeInsets.only(bottom: 20),
-                child: ListTile(
-                  onTap: () {},
-                  title: Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Text(
-                      members[index].title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  leading: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(members[index].image),
-                      ),
-                    ),
-                  ),
-                  trailing: Text("2h"),
-                  subtitle: Text(members[index].lastMessage),
-                ),
-              ),
+              (index) => MemberCard(member: members[index]),
             ),
           ),
           Spacer(),
@@ -118,25 +91,68 @@ class ChatMember extends StatelessWidget {
   }
 }
 
+class MemberCard extends StatelessWidget {
+  final Member member;
+  final bool showJob;
+  final Widget? trailing;
+
+  const MemberCard({super.key, this.showJob = false, required this.member, this.trailing});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      child: ListTile(
+        onTap: () {},
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text(
+            member.title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        leading: Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(member.image),
+            ),
+          ),
+        ),
+        trailing: trailing ?? Text("2h"),
+        subtitle: showJob ? Text(member.job) : Text(member.lastMessage),
+      ),
+    );
+  }
+}
+
 class Member {
   final String image;
   final String title;
   final String lastMessage;
+  final String job;
 
-  Member(this.image, this.title, this.lastMessage);
+  Member(this.image, this.title, this.lastMessage, this.job);
 }
 
 List<Member> members = [
   Member("https://github.com/airaarima.png", "Aira Arima",
-      "Gurias, tô saindo aqui"),
+      "Gurias, tô saindo aqui", "UX Design & Full Stack"),
   Member("https://github.com/karinasantana-esx.png", "Karina Santana",
-      "you: Manda meu pix"),
+      "you: Manda meu pix", "Full Stack"),
   Member(
       "https://i.pinimg.com/originals/ff/80/3b/ff803b914dc9d8a4d1ec9010675a02b1.jpg",
       "Pirulito",
-      "TE-O-RI-CA-MEN-TE funciona!"),
+      "TE-O-RI-CA-MEN-TE funciona!",
+      "TechLead"),
   Member(
       "https://s2.glbimg.com/TEO1m7Y0mgAP02X4cjhkKfFEAbI=/smart/s.glbimg.com/es/ge/f/original/2016/09/07/messi.jpg",
       "Irineu Júnior",
-      "Você não sabe, nem eu!"),
+      "Você não sabe, nem eu!",
+      "Freelancer"),
 ];
