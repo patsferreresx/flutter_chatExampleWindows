@@ -36,6 +36,11 @@ bool FlutterWindow::OnCreate() {
   // window is shown. It is a no-op if the first frame hasn't completed yet.
   flutter_controller_->ForceRedraw();
 
+  // Defina o tamanho mínimo da janela
+  const int min_width = 700;  // Largura mínima
+  const int min_height = 600; // Altura mínima
+  SetWindowPos(GetHandle(), nullptr, 0, 0, min_width, min_height, SWP_NOMOVE | SWP_NOZORDER);
+
   return true;
 }
 
@@ -65,6 +70,14 @@ FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
     case WM_FONTCHANGE:
       flutter_controller_->engine()->ReloadSystemFonts();
       break;
+
+    case WM_GETMINMAXINFO: {
+      // Define as restrições de tamanho mínimo
+      MINMAXINFO* minMaxInfo = reinterpret_cast<MINMAXINFO*>(lparam);
+      minMaxInfo->ptMinTrackSize.x = 500; // Largura mínima
+      minMaxInfo->ptMinTrackSize.y = 400; // Altura mínima
+      return 0;
+    }
   }
 
   return Win32Window::MessageHandler(hwnd, message, wparam, lparam);
