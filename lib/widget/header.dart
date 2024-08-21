@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  final DeviceScreenType deviceScreenType;
+  final Function openDrawer;
+
+  const Header(
+      {super.key, required this.deviceScreenType, required this.openDrawer});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +19,12 @@ class Header extends StatelessWidget {
             width: double.infinity,
             child: Row(
               children: [
+                if (deviceScreenType == DeviceScreenType.mobile)
+                  IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () => openDrawer(),
+                  ),
+                SizedBox(width: 20),
                 Icon(
                   Icons.message,
                   color: Theme.of(context).primaryColor,
@@ -27,15 +38,18 @@ class Header extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                Container(
-                  constraints: BoxConstraints(maxWidth: 120),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Search',
-                        suffixIcon: Icon(Icons.search)),
-                  ),
-                ),
+                deviceScreenType == DeviceScreenType.mobile ||
+                        deviceScreenType == DeviceScreenType.tablet
+                    ? IconButton(icon: Icon(Icons.search), onPressed: () {})
+                    : Container(
+                        constraints: BoxConstraints(maxWidth: 120),
+                        child: TextField(
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Search',
+                              suffixIcon: Icon(Icons.search)),
+                        ),
+                      ),
                 SizedBox(width: 20),
                 Stack(
                   children: [
