@@ -10,6 +10,7 @@ class MessageBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Scouting Group",
@@ -32,7 +33,6 @@ class MessageBox extends StatelessWidget {
                 "Any question about the documentation or the project\n"
                 "please feel free to get in contact us\n",
                 style: TextStyle(
-                  color: Color(0xFF78A1C6),
                   fontSize: 17,
                   fontWeight: FontWeight.w300,
                 ),
@@ -58,9 +58,11 @@ class MessageBox extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildMessage(
-                            "Awesome! it's going to be amazing deal!"),
-                        _buildMessage("I've run through different docs"),
-                        _buildMessage("Hope for the best"),
+                            "Oi.. sou o ChatUs, como você se 100te hoxe? Turu pom?"),
+                        _buildMessage(
+                            "Estou te mandando isso pq estou vendo que vc tá vendo live de Valorant faz 2h"),
+                        _buildMessage(
+                            "Vai trabalhar vagabol akakaka com todo respeitum rs"),
                       ],
                     )
                   ],
@@ -75,11 +77,11 @@ class MessageBox extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         _buildMessage(
-                          "Thanks for the sending the deal, I'll review it",
+                          "Opa lindãum, esqueci a aba aberta sem querer heehe ",
                           isSend: true,
                         ),
                         _buildMessage(
-                          "and get back to you shortly",
+                          "não tô vendo nada D: é youtube de código",
                           isSend: true,
                         ),
                       ],
