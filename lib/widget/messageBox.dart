@@ -54,16 +54,18 @@ class MessageBox extends StatelessWidget {
                   children: [
                     CircleAvatar(),
                     SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildMessage(
-                            "Oi.. sou o ChatUs, como você se 100te hoxe? Turu pom?"),
-                        _buildMessage(
-                            "Estou te mandando isso pq estou vendo que vc tá vendo live de Valorant faz 2h"),
-                        _buildMessage(
-                            "Vai trabalhar vagabol akakaka com todo respeitum rs"),
-                      ],
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildMessage(
+                              "Oi.. sou o ChatUs, como você se 100te hoxe? Turu pom?"),
+                          _buildMessage(
+                              "Estou te mandando isso pq estou vendo que vc tá vendo live de Valorant faz 2h"),
+                          _buildMessage(
+                              "Vai trabalhar vagabol akakaka com todo respeitum rs"),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -73,18 +75,20 @@ class MessageBox extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        _buildMessage(
-                          "Opa lindãum, esqueci a aba aberta sem querer heehe ",
-                          isSend: true,
-                        ),
-                        _buildMessage(
-                          "não tô vendo nada D: é youtube de código",
-                          isSend: true,
-                        ),
-                      ],
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          _buildMessage(
+                            "Opa lindãum, esqueci a aba aberta sem querer heehe ",
+                            isSend: true,
+                          ),
+                          _buildMessage(
+                            "não tô vendo nada D: é youtube de código",
+                            isSend: true,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(width: 10),
                     CircleAvatar(),
